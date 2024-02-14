@@ -1,0 +1,32 @@
+{
+  "name": "env-enforcer",
+  "version": "0.1.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Mahdimf79/env-enforcer.git"
+  },
+  "keywords": [],
+  "author": "https://github.com/Mahdimf79",
+  "license": "MIT",
+  "devDependencies": {
+    "@swc/core": "^1.4.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/node": "^20.11.17",
+    "dotenv": "^16.4.2",
+    "node": "^21.6.1"
+  }
+}
