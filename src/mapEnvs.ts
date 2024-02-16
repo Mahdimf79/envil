@@ -2,18 +2,14 @@ import isStrings from './isStrings';
 import { Env, Envs } from './models';
 
 const mapEnvs = (envs: Envs) => {
-  let envDetails: Env[];
-
   if (isStrings(envs)) {
-    envDetails = envs.map((name) => ({
+    return envs.map((name) => ({
       name,
       optional: true,
     }));
-  } else {
-    envDetails = envs;
   }
 
-  return envDetails;
+  return envs;
 };
 
 export default mapEnvs;
