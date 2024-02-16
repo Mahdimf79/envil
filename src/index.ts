@@ -51,7 +51,7 @@ const envEnforcer = (envs: Envs, options?: Options) => {
       let message = '%e is not defined';
       if (options) {
         let stdout = options.stdout || console.log;
-        message = '%e is not defined' || options.template;
+        message = options.template || '%e is not defined';
         message = replacedMessage(message, envDetails[i]);
         stdout(message);
       } else {
