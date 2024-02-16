@@ -48,15 +48,13 @@ const envEnforcer = (envs: Envs, options?: Options) => {
 
   for (let i = 0; i < envDetails.length; i++) {
     if (envDetails[i].optional && !process.env[envDetails[i].name]) {
-      let message = '%e is not defined';
-      if (options) {
-        let stdout = options.stdout || console.log;
-        message = options.template || '%e is not defined';
-        message = replacedMessage(message, envDetails[i]);
-        stdout(message);
-      } else {
-        console.log(replacedMessage(message, envDetails[i]));
-      }
+      const message = replacedMessage(
+        options?.template || '%e is not defined',
+        envDetails[i],
+      );
+      const stdout = options?.stdout || console.log;
+
+      stdout(message);
       isEnvMissing = true;
     }
   }
