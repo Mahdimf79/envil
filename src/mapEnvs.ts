@@ -1,7 +1,7 @@
 import isStrings from './isStrings';
 import { Env, Envs } from './models';
 
-const setEnvDetails = (envs: Envs) => {
+const mapEnvs = (envs: Envs) => {
   let envDetails: Env[];
 
   if (isStrings(envs)) {
@@ -16,4 +16,4 @@ const setEnvDetails = (envs: Envs) => {
   return envDetails;
 };
 
-export default setEnvDetails;
+export default mapEnvs;

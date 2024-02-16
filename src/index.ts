@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 
 import { Envs, Options } from './models';
-import setEnvDetails from './setEnvDetails';
+import mapEnvs from './mapEnvs';
 import replacedMessage from './replacedMessage';
 
 dotenv.config();
@@ -44,7 +44,7 @@ dotenv.config();
 const envEnforcer = (envs: Envs, options?: Options) => {
   let isEnvMissing = false;
 
-  const envDetails = setEnvDetails(envs);
+  const envDetails = mapEnvs(envs);
 
   for (let i = 0; i < envDetails.length; i++) {
     if (envDetails[i].optional && !process.env[envDetails[i].name]) {
