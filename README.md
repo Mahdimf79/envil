@@ -13,18 +13,11 @@ npm install env-enforcer
 ### Usage
 
 ```typescript
-import checkIfEnvsAreSet from 'env-enforcer';
+import envEnforcer from 'env-enforcer';
 
-const envs = [
-  'NODE_ENV',
-  'PORT',
-  {
-    name: 'DATABASE_URL',
-    optional: true,
-  },
-];
+const envs = ['NODE_ENV', 'PORT'];
 
-checkIfEnvsAreSet(envs, {
+envEnforcer(envs, {
   shouldExit: true,
   template: '%e is not set. Please set it in your .env file.',
 });
@@ -37,11 +30,11 @@ checkIfEnvsAreSet(envs, {
 Suppose you have a NodeJS application that requires two environment variables, `NODE_ENV` and `PORT`. You can use Env Enforcer to check for the existence of these variables before starting your application:
 
 ```typescript
-import checkIfEnvsAreSet from 'env-enforcer';
+import envEnforcer from 'env-enforcer';
 
 const envs = ['NODE_ENV', 'PORT'];
 
-checkIfEnvsAreSet(envs, {
+envEnforcer(envs, {
   shouldExit: true,
 });
 ```
@@ -53,18 +46,16 @@ If either of these variables is not set, Env Enforcer will print an error messag
 You can also use Env Enforcer to check for optional environment variables. For example, suppose your application has a database but it can be used in a read-only mode if the `DATABASE_URL` environment variable is not set:
 
 ```typescript
-import checkIfEnvsAreSet from 'env-enforcer';
+import envEnforcer from 'env-enforcer';
 
 const envs = [
-  'NODE_ENV',
-  'PORT',
   {
     name: 'DATABASE_URL',
     optional: true,
   },
 ];
 
-checkIfEnvsAreSet(envs, {
+envEnforcer(envs, {
   shouldExit: false,
   template: '%e is not set. Using read-only mode.',
 });
@@ -102,7 +93,7 @@ Here are some further examples of how Env Enforcer can be used:
 - Checking for a specific value for an environment variable:
 
 ```typescript
-import checkIfEnvsAreSet from 'env-enforcer';
+import envEnforcer from 'env-enforcer';
 
 const envs = [
   {
@@ -110,7 +101,7 @@ const envs = [
   },
 ];
 
-checkIfEnvsAreSet(envs, {
+envEnforcer(envs, {
   shouldExit: true,
 });
 ```
@@ -118,7 +109,7 @@ checkIfEnvsAreSet(envs, {
 - Checking for multiple environment variables with different options:
 
 ```typescript
-import checkIfEnvsAreSet from 'env-enforcer';
+import envEnforcer from 'env-enforcer';
 
 const envs = [
   {
@@ -130,7 +121,7 @@ const envs = [
   },
 ];
 
-checkIfEnvsAreSet(envs, {
+envEnforcer(envs, {
   shouldExit: false,
   template: '%e is not set. Using default value of %v.',
 });
@@ -139,15 +130,13 @@ checkIfEnvsAreSet(envs, {
 - Using Env Enforcer with a custom logger:
 
 ```typescript
-import checkIfEnvsAreSet from 'env-enforcer';
+import envEnforcer from 'env-enforcer';
 
-const logger = {
-  error: (message: string) => {
-    console.error(message);
-  },
+const logger = (message: string) => {
+  console.error(message);
 };
 
-checkIfEnvsAreSet(['NODE_ENV', 'PORT'], {
+envEnforcer(['NODE_ENV', 'PORT'], {
   shouldExit: true,
   logger,
 });

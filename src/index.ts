@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 
-import { Envs, EnvsValue, Options } from './config';
-import isEnvStringValueArray from './isEnvStringValueArray';
+import { Envs, Options } from './models';
+import setEnvDetails from './setEnvDetails';
+import replacedMessage from './replacedMessage';
 
 dotenv.config();
 
@@ -19,18 +20,18 @@ dotenv.config();
  * const requiredEnvs = ['API_KEY', 'DATABASE_URL'];
  * const shouldExit = true;
  *
- * checkIfEnvsAreSet(requiredEnvs, { shouldExit });
+ * envEnforcer(requiredEnvs, { shouldExit });
  *
  * // Customizing behavior:
  * const customTemplate = '%e is missing. Please set it before proceeding.';
  * const stdout = (message) => console.warn(message);
  *
- * checkIfEnvsAreSet(requiredEnvs, { template: customTemplate, stdout });
+ * envEnforcer(requiredEnvs, { template: customTemplate, stdout });
  *
  * // Handling optional variables:
  * const mixedEnvs = ['REQUIRED_VAR', 'OPTIONAL_VAR'];
  *
- * checkIfEnvsAreSet(mixedEnvs); // Only reports missing REQUIRED_VAR
+ * envEnforcer(mixedEnvs); // Only reports missing REQUIRED_VAR
  *
  * // With optional variables specified:
  * const mixedEnvsWithOptional = [
@@ -38,45 +39,28 @@ dotenv.config();
  *   { name: 'OPTIONAL_VAR', optional: true },
  ];
  *
- * checkIfEnvsAreSet(mixedEnvsWithOptional); // Only reports missing REQUIRED_VAR
+ * envEnforcer(mixedEnvsWithOptional); // Only reports missing REQUIRED_VAR
  */
-const checkIfEnvsAreSet = (envs: Envs, options?: Options) => {
-  let status = false;
+const envEnforcer = (envs: Envs, options?: Options) => {
+  let isEnvMissing = false;
 
-  let envsWithOptional: EnvsValue[];
+  const envDetails = setEnvDetails(envs);
 
-  if (isEnvStringValueArray(envs)) {
-    envsWithOptional = envs.map((name) => ({
-      name,
-      optional: true,
-    }));
-  } else {
-    envsWithOptional = envs;
-  }
-
-  for (let i = 0; i < envsWithOptional.length; i++) {
-    if (
-      envsWithOptional[i].optional &&
-      !process.env[envsWithOptional[i].name]
-    ) {
+  for (let i = 0; i < envDetails.length; i++) {
+    if (envDetails[i].optional && !process.env[envDetails[i].name]) {
       let message = '%e is not defined';
       if (options) {
-        if (options.template) {
-          message = options.template;
-        }
-        message = message.replace('%e', envsWithOptional[i].name);
-        if (options.stdout) {
-          options.stdout(message);
-        } else {
-          console.log(message);
-        }
+        let stdout = options.stdout || console.log;
+        message = '%e is not defined' || options.template;
+        message = replacedMessage(message, envDetails[i]);
+        stdout(message);
       } else {
-        console.log(message.replace('%e', envsWithOptional[i].name));
+        console.log(replacedMessage(message, envDetails[i]));
       }
-      status = true;
+      isEnvMissing = true;
     }
   }
-  if (status) {
+  if (isEnvMissing) {
     if (!options?.shouldExit) {
       return false;
     }
@@ -86,4 +70,4 @@ const checkIfEnvsAreSet = (envs: Envs, options?: Options) => {
   return true;
 };
 
-export default checkIfEnvsAreSet;
+export default envEnforcer;

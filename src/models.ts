@@ -4,9 +4,9 @@ export type Options = {
   stdout?: any;
 };
 
-export type EnvsValue = {
+export type Env = {
   name: string;
   optional?: boolean;
 };
 
-export type Envs = string[] | EnvsValue[];
+export type Envs = string[] | Env[];
