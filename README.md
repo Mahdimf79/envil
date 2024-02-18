@@ -7,13 +7,13 @@ Env Enforcer is a NodeJS package that allows you to validate environment variabl
 ### Installation
 
 ```
-npm install env-enforcer
+npm install enforcer-env
 ```
 
 ### Usage
 
 ```typescript
-import envEnforcer from 'env-enforcer';
+import envEnforcer from 'enforcer-env';
 
 const envs = ['NODE_ENV', 'PORT'];
 
@@ -30,7 +30,7 @@ envEnforcer(envs, {
 Suppose you have a NodeJS application that requires two environment variables, `NODE_ENV` and `PORT`. You can use Env Enforcer to check for the existence of these variables before starting your application:
 
 ```typescript
-import envEnforcer from 'env-enforcer';
+import envEnforcer from 'enforcer-env';
 
 const envs = ['NODE_ENV', 'PORT'];
 
@@ -46,7 +46,7 @@ If either of these variables is not set, Env Enforcer will print an error messag
 You can also use Env Enforcer to check for optional environment variables. For example, suppose your application has a database but it can be used in a read-only mode if the `DATABASE_URL` environment variable is not set:
 
 ```typescript
-import envEnforcer from 'env-enforcer';
+import envEnforcer from 'enforcer-env';
 
 const envs = [
   {
@@ -93,7 +93,7 @@ Here are some further examples of how Env Enforcer can be used:
 - Checking for a specific value for an environment variable:
 
 ```typescript
-import envEnforcer from 'env-enforcer';
+import envEnforcer from 'enforcer-env';
 
 const envs = [
   {
@@ -109,7 +109,7 @@ envEnforcer(envs, {
 - Checking for multiple environment variables with different options:
 
 ```typescript
-import envEnforcer from 'env-enforcer';
+import envEnforcer from 'enforcer-env';
 
 const envs = [
   {
@@ -130,7 +130,7 @@ envEnforcer(envs, {
 - Using Env Enforcer with a custom logger:
 
 ```typescript
-import envEnforcer from 'env-enforcer';
+import envEnforcer from 'enforcer-env';
 
 const logger = (message: string) => {
   console.error(message);

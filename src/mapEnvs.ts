@@ -1,5 +1,5 @@
 import isStrings from './isStrings';
-import { Env, Envs } from './models';
+import { Envs } from './models';
 
 const mapEnvs = (envs: Envs) => {
   if (isStrings(envs)) {
