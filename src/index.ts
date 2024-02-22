@@ -41,7 +41,7 @@ dotenv.config();
  *
  * envEnforcer(mixedEnvsWithOptional); // Only reports missing REQUIRED_VAR
  */
-const envEnforcer = (envs: Envs, options?: Options) => {
+const envil = (envs: Envs, options?: Options) => {
   let isEnvMissing = false;
 
   const envDetails = mapEnvs(envs);
@@ -70,4 +70,4 @@ const envEnforcer = (envs: Envs, options?: Options) => {
   return true;
 };
 
-export default envEnforcer;
+export default envil;

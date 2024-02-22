@@ -1,6 +1,6 @@
 {
-  "name": "enforcer-env",
-  "version": "0.1.2",
+  "name": "envil",
+  "version": "0.1.0",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Mahdimf79/env-enforcer.git"
+    "url": "git@github.com:Mahdimf79/envil.git"
   },
   "keywords": [],
   "author": "https://github.com/Mahdimf79",
