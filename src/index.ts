@@ -20,18 +20,18 @@ dotenv.config();
  * const requiredEnvs = ['API_KEY', 'DATABASE_URL'];
  * const shouldExit = true;
  *
- * envEnforcer(requiredEnvs, { shouldExit });
+ * envil(requiredEnvs, { shouldExit });
  *
  * // Customizing behavior:
  * const customTemplate = '%e is missing. Please set it before proceeding.';
  * const stdout = (message) => console.warn(message);
  *
- * envEnforcer(requiredEnvs, { template: customTemplate, stdout });
+ * envil(requiredEnvs, { template: customTemplate, stdout });
  *
  * // Handling optional variables:
  * const mixedEnvs = ['REQUIRED_VAR', 'OPTIONAL_VAR'];
  *
- * envEnforcer(mixedEnvs); // Only reports missing REQUIRED_VAR
+ * envil(mixedEnvs); // Only reports missing REQUIRED_VAR
  *
  * // With optional variables specified:
  * const mixedEnvsWithOptional = [
@@ -39,7 +39,7 @@ dotenv.config();
  *   { name: 'OPTIONAL_VAR', optional: true },
  ];
  *
- * envEnforcer(mixedEnvsWithOptional); // Only reports missing REQUIRED_VAR
+ * envil(mixedEnvsWithOptional); // Only reports missing REQUIRED_VAR
  */
 const envil = (envs: Envs, options?: Options) => {
   let isEnvMissing = false;
