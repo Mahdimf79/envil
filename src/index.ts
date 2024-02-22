@@ -58,8 +58,10 @@ const envEnforcer = (envs: Envs, options?: Options) => {
       isEnvMissing = true;
     }
   }
+
+  const isShouldExit = options?.shouldExit || true;
   if (isEnvMissing) {
-    if (!options?.shouldExit) {
+    if (!isShouldExit) {
       return false;
     }
     return process.exit(1);
