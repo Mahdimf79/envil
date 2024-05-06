@@ -142,4 +142,14 @@ envil(['NODE_ENV', 'PORT'], {
 });
 ```
 
+- Using Envil with return env value:
+
+```typescript
+import envil from 'envil';
+
+const values = envil(['NODE_ENV', 'PORT'], {
+  returnValues: true,
+});
+```
+
 I hope this helps!

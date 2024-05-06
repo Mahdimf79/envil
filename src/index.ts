@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-import { Envs, Options } from './models';
+import { Envs, Options, ReturnValues } from './models';
 import mapEnvs from './mapEnvs';
 import replacedMessage from './replacedMessage';
 
@@ -11,7 +11,7 @@ dotenv.config();
  *
  * @param {Envs} envs - An array of required environment variable names.
  * @param {Options} [options] - Optional configuration options.
- * @returns {boolean} - `true` if all required variables are set, `false` otherwise.
+ * @returns {boolean} - `true` or `values` if all required variables are set, `false` otherwise.
  *
  * @throws {Error} - If an invalid `envs` argument is provided.
  *
@@ -21,6 +21,8 @@ dotenv.config();
  * const shouldExit = true;
  *
  * envil(requiredEnvs, { shouldExit });
+ * 
+ * const values = envil(requiredEnvs, { returnValues:true });
  *
  * // Customizing behavior:
  * const customTemplate = '%e is missing. Please set it before proceeding.';
@@ -46,6 +48,8 @@ const envil = (envs: Envs, options?: Options) => {
 
   const envDetails = mapEnvs(envs);
 
+  const envValues: ReturnValues = {};
+
   for (let i = 0; i < envDetails.length; i++) {
     if (envDetails[i].optional && !process.env[envDetails[i].name]) {
       const message = replacedMessage(
@@ -57,6 +61,8 @@ const envil = (envs: Envs, options?: Options) => {
       stdout(message);
       isEnvMissing = true;
     }
+
+    envValues[envDetails[i].name] = String(process.env[envDetails[i].name]);
   }
 
   const isShouldExit = options?.shouldExit || true;
@@ -65,6 +71,11 @@ const envil = (envs: Envs, options?: Options) => {
       return false;
     }
     return process.exit(1);
+  }
+
+  const isShouldReturnValue = options?.returnValues || false;
+  if (isShouldReturnValue) {
+    return envValues;
   }
 
   return true;
