@@ -11,7 +11,7 @@ dotenv.config();
  *
  * @param {Envs} envs - An array of required environment variable names.
  * @param {Options} [options] - Optional configuration options.
- * @returns {boolean} - `true` or `values` if all required variables are set, `false` otherwise.
+ * @returns {boolean} - `values` if all required variables are set, `null` otherwise.
  *
  * @throws {Error} - If an invalid `envs` argument is provided.
  *
@@ -43,7 +43,7 @@ dotenv.config();
  *
  * envil(mixedEnvsWithOptional); // Only reports missing REQUIRED_VAR
  */
-const envil = (envs: Envs, options?: Options) => {
+const envil = (envs: Envs, options?: Options): ReturnValues => {
   let isEnvMissing = false;
 
   const envDetails = mapEnvs(envs);
@@ -67,18 +67,13 @@ const envil = (envs: Envs, options?: Options) => {
 
   const isShouldExit = options?.shouldExit || true;
   if (isEnvMissing) {
-    if (!isShouldExit) {
-      return false;
+    if (isShouldExit) {
+      return process.exit(1);
     }
-    return process.exit(1);
+    return {};
   }
 
-  const isShouldReturnValue = options?.returnValues || false;
-  if (isShouldReturnValue) {
-    return envValues;
-  }
-
-  return true;
+  return envValues;
 };
 
 export default envil;
